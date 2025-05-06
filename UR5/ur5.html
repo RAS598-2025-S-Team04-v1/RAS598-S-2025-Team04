@@ -385,81 +385,37 @@
 
   <h1><b>IMAGE GALLERY</b></h1>
 
-    <div class="dropdown-box">
-      <label for="mediaType">Choose media:</label>
-      <select id="mediaType" onchange="switchGallery()">
-        <option value="videos">Videos</option>
-        <option value="images">Images</option>
-        
-      </select>
+  <div class="dropdown-box">
+  <label for="mediaType">Choose media:</label>
+  <select id="mediaType" onchange="switchGallery()">
+    <option value="videos">Videos</option>
+    <option value="images">Images</option>
+  </select>
 
-      
-      <div id="videos" class="gallery gallery-section">
-        <iframe width="400" height="400" src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
+  <!-- Videos section - shown by default -->
+  <div id="videos" class="gallery-section active">
+    <iframe src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
+  </div>
 
-      </div>
-      
-      <div id="images" class="gallery gallery-section active">
-        <!--<img src="force_setup.jpg" alt="Force Setup" onclick="openModal(this.src)">
-        <img src="ur5_fg.jpg" alt="UR5 Setup" onclick="openModal(this.src)">
-        <img src="bestfit.png" alt="Best Fit Graph" onclick="openModal(this.src)">
-        <img src="rosgraph.jpg" alt="ROS Graph" onclick="openModal(this.src)"> -->
-      </div>
+  <!-- Images section -->
+  <div id="images" class="gallery-section">
+    <!-- <img src="force_setup.jpg" alt="Force Setup">
+    <img src="ur5_fg.jpg" alt="UR5 Setup">
+    <img src="bestfit.png" alt="Best Fit Graph">
+    <img src="rosgraph.jpg" alt="ROS Graph"> -->
+  </div>
+</div>
 
-
-      <div id="popupModal" class="modal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <div class="modal-content" id="modalContent"></div>
-      </div>
-    </div>
-
-<br>
-
+<script>
+  function switchGallery() {
+    const selection = document.getElementById("mediaType").value;
+    document.querySelectorAll('.gallery-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById(selection).classList.add('active');
+  }
+</script>
 
 </main>
-<script>
-    fetch('NatNet_LivePlot_XYZ_1.py')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('codeContent').textContent = data;
-        })
-        .catch(err => {
-          document.getElementById('codeContent').textContent = "Failed to load code.";
-    });
-    function switchGallery() {
-      const selection = document.getElementById("mediaType").value;
-      document.querySelectorAll('.gallery-section').forEach(section => {
-        section.classList.remove('active');
-      });
-      document.getElementById(selection).classList.add('active');
-    }
-
-    function openModal(src) {
-      const modal = document.getElementById("popupModal");
-      const content = document.getElementById("modalContent");
-      content.innerHTML = "";
-
-      const ext = src.split('.').pop().toLowerCase();
-      if (['mp4', 'webm', 'ogg'].includes(ext)) {
-        const video = document.createElement("video");
-        video.src = src;
-        video.controls = true;
-        video.autoplay = true;
-        content.appendChild(video);
-      } else {
-        const img = document.createElement("img");
-        img.src = src;
-        content.appendChild(img);
-      }
-
-      modal.style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("popupModal").style.display = "none";
-    }
-
-    document.querySelector(".close").onclick = closeModal;
-  </script>
 </body>
 </html>
