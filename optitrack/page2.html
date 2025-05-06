@@ -323,7 +323,12 @@
   
   <br>
 <h2>SOFTWARE CONFIGURATION</h2>
-    <h2>Networking</h2>
+    <h3>Calibrations</h3>
+    <p>Calibration of an OptiTrack motion capture system is the critical step in obtaining accurate 3D tracking of markers throughout the capture volume.
+      Begin by physically positioning all cameras around the tracking volume, making sure they are securely mounted, facing inward, and have overlapping fields of view for best marker visibility. With the cameras positioned, open the Motive software and navigate to the calibration tab. Begin camera calibration by waving the calibration wand, which has several precisely located reflective markers on it. Slowly wave the wand throughout the entire capture volume so that it is clearly seen by a series of cameras from varying viewpoints. This movement allows the software to determine the position and orientation of each camera through triangulation. Calibration accuracy is improved as more information are recorded by the system from various areas and angles. When enough data is collected, click "Calculate" to calculate the camera calibration solution. With that done, perform ground plane calibration by placing a calibration square or an L-frame at the desired origin position on the floor. This will allow you to define the coordinate system of your tracking volume. Carefully align and capture this reference, then confirm it in Motive. Lastly, to confirm the overall calibration, load or create a rigid body and move it across the tracking volume. Observe any occurrence of drift, jitter, or position errors—these are signs of whether additional calibration or camera adjustment is necessary. 
+      A good calibration guarantees stable, high-accuracy tracking for your motion capture system.</p>
+    
+    <h3>Networking</h3>
     <p>As discussed before, most of the communications to ROS2 on the Optitrack happens through NatNet SDK. If the MOTIVE is in the same system or a different system as ROS2, a netplan is required which establishes a static IP, in a VM, as communications happen via the Ethernet.
        For data transfer, the streaming engine uses multicast and uses streaming engine IP with UDP Ports for transfers. Attached below is a python program which takes data from the MOTIVE system to an external system i.e. my windows host machine, via the UDP ports, 
        the IP of the streaming engine and the static IP we set for our ethernet. The program generates a live plot for the position and orientation and displays it as well, which proved the possibility of a data communication and got us closer to our goal. 
@@ -337,7 +342,7 @@
     <h2>Creating the ROS2 workspace</h2>
 
     <p>When inculcating with ROS2, we had to set a static IP by changing the netplan(shown below). While using a brigded adapter which is the ethernet, the below netplan sets up the static IP. Our first option was converting the above python code into a ROS2 workspace.
-        Another alternative is installing a ROS2 Driver for the OptiTrack.</p>
+        Another alternative is installing a ROS2 Driver for the OptiTrack. While both worked properly, issues arrived when recieving data firewall blocked the data. While</p>
 
     <nav>
       <a href="https://mark-10.com/products/force-gauges/series-4/#tab-1" target="_blank">Mark-10 Series 4 Force Gauge</a>
