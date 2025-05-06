@@ -109,83 +109,51 @@
       background-color: #000;
     }
 
+    .dropdown-box {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+
+    label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
     select {
-      padding: 8px;
-      font-size: 1em;
-      margin-bottom: 20px;
+      padding: 8px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
     }
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .gallery img, .gallery video {
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .gallery img:hover, .gallery video:hover {
-      transform: scale(1.05);
+    select:hover {
+      border-color: #888;
     }
 
     .gallery-section {
       display: none;
+      margin-top: 20px;
     }
 
     .gallery-section.active {
-      display: flex;
+      display: block;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
+    .gallery-section iframe,
+    .gallery-section img {
       width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .modal-content video, .modal-content img {
-      max-width: 90vw;
-      max-height: 80vh;
-      width: auto;
-      height: auto;
+      max-width: 500px;
+      margin: 10px 0;
       border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .dropdown-box {
-      display: inline-block;
-      background-color: #FFC627;
-      padding: 15px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: 20px;
-    }
-
+  
     .popup-image {
       display: block;
       margin: 0 auto;
@@ -402,49 +370,28 @@
 
   <h1><b>IMAGE GALLERY</b></h1>
 
-    <div class="dropdown-box">
-      <label for="mediaType">Choose media:</label>
-      <select id="mediaType" onchange="switchGallery()">
-        <option value="videos">Videos</option>
-        <option value="images">Images</option>
-        
-      </select>
-
-      <div id="videos" class="gallery gallery-section">
-        <iframe width="400" height="400" src="https://www.youtube.com/embed/vSl41NQOHbg" frameborder="0" allowfullscreen></iframe>
-        <iframe width="400" height="400" src="https://www.youtube.com/embed/JNOpxTxRALE" frameborder="0" allowfullscreen></iframe>
-      </div>
-      
-      <div id="images" class="gallery gallery-section active">
-        <img src="optisetup.jpg" alt="ROS2 rqt_graph" onclick="openModal(this.src)">
-        
-        <!--<img src="force_setup.jpg" alt="Force Setup" onclick="openModal(this.src)">
-        <img src="ur5_fg.jpg" alt="UR5 Setup" onclick="openModal(this.src)">
-        <img src="bestfit.png" alt="Best Fit Graph" onclick="openModal(this.src)">
-        <img src="rosgraph.jpg" alt="ROS Graph" onclick="openModal(this.src)"> -->
-      </div>
-
-      
-
-      <div id="popupModal" class="modal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <div class="modal-content" id="modalContent"></div>
-      </div>
+  <div class="dropdown-box">
+    <label for="mediaType">Choose media:</label>
+    <select id="mediaType" onchange="switchGallery()">
+      <option value="videos">Videos</option>
+      <option value="images">Images</option>
+    </select>
+  
+    <!-- Videos section - shown by default -->
+    <div id="videos" class="gallery-section active">
+      <iframe src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
     </div>
-
-<br>
-
-
-</main>
-<script>
-    fetch('NatNet_LivePlot_XYZ_1.py')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('codeContent').textContent = data;
-        })
-        .catch(err => {
-          document.getElementById('codeContent').textContent = "Failed to load code.";
-    });
+  
+    <!-- Images section -->
+    <div id="images" class="gallery-section">
+      <img src="force_setup.jpg" alt="Force Setup">
+      <img src="ur5_fg.jpg" alt="UR5 Setup">
+      <img src="bestfit.png" alt="Best Fit Graph">
+      <img src="rosgraph.jpg" alt="ROS Graph">
+    </div>
+  </div>
+  
+  <script>
     function switchGallery() {
       const selection = document.getElementById("mediaType").value;
       document.querySelectorAll('.gallery-section').forEach(section => {
@@ -452,33 +399,9 @@
       });
       document.getElementById(selection).classList.add('active');
     }
-
-    function openModal(src) {
-      const modal = document.getElementById("popupModal");
-      const content = document.getElementById("modalContent");
-      content.innerHTML = "";
-
-      const ext = src.split('.').pop().toLowerCase();
-      if (['mp4', 'webm', 'ogg'].includes(ext)) {
-        const video = document.createElement("video");
-        video.src = src;
-        video.controls = true;
-        video.autoplay = true;
-        content.appendChild(video);
-      } else {
-        const img = document.createElement("img");
-        img.src = src;
-        content.appendChild(img);
-      }
-
-      modal.style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("popupModal").style.display = "none";
-    }
-
-    document.querySelector(".close").onclick = closeModal;
   </script>
+  </main>
+
+  
 </body>
 </html>
