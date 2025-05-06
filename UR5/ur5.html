@@ -115,77 +115,52 @@
       margin-bottom: 20px;
     }
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .gallery img, .gallery video {
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .gallery img:hover, .gallery video:hover {
-      transform: scale(1.05);
-    }
-
     .gallery-section {
-      display: none;
-    }
+    display: none;
+  }
 
-    .gallery-section.active {
-      display: flex;
-    }
+  .gallery-section.active {
+    display: block;
+  }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      align-items: center;
-      justify-content: center;
-    }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
 
-    .modal-content {
-      max-width: 100%;
-      max-height: 100%;
-    }
+  .modal-content img, .modal-content video {
+    max-width: 90%;
+    max-height: 90%;
+  }
 
-    .modal-content video, .modal-content img {
-      max-width: 90vw;
-      max-height: 80vh;
-      width: auto;
-      height: auto;
-      border-radius: 10px;
-    }
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
 
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-    }
+  .dropdown-box {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
 
-    .dropdown-box {
-      display: inline-block;
-      background-color: #FFC627;
-      padding: 15px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: 20px;
-    }
-
+  select {
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  
     .popup-image {
       display: block;
       margin: 0 auto;
