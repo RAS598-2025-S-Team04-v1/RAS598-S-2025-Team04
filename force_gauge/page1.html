@@ -105,82 +105,49 @@
     nav a:hover {
       background-color: #000;
     }
+    .dropdown-box {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+
+    label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
 
     select {
-      padding: 8px;
-      font-size: 1em;
-      margin-bottom: 20px;
+      padding: 8px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
     }
 
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .gallery img, .gallery video {
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .gallery img:hover, .gallery video:hover {
-      transform: scale(1.05);
+    select:hover {
+      border-color: #888;
     }
 
     .gallery-section {
       display: none;
+      margin-top: 20px;
     }
 
     .gallery-section.active {
-      display: flex;
+      display: block;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
+    .gallery-section iframe,
+    .gallery-section img {
       width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .modal-content video, .modal-content img {
-      max-width: 90vw;
-      max-height: 80vh;
-      width: auto;
-      height: auto;
+      max-width: 500px;
+      margin: 10px 0;
       border-radius: 10px;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .dropdown-box {
-      display: inline-block;
-      background-color: #FFC627;
-      padding: 15px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .popup-image {
