@@ -414,6 +414,14 @@
     });
     document.getElementById(selection).classList.add('active');
   }
+  fetch('NatNet_LivePlot_XYZ_1.py')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('codeContent').textContent = data;
+  })
+  .catch(err => {
+     document.getElementById('codeContent').textContent = "Failed to load code.";
+  });
 </script>
 
 </main>

@@ -379,15 +379,14 @@
   
     <!-- Videos section - shown by default -->
     <div id="videos" class="gallery-section active">
-      <iframe src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/vSl41NQOHbg" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/JNOpxTxRALE" frameborder="0" allowfullscreen></iframe>
     </div>
   
     <!-- Images section -->
     <div id="images" class="gallery-section">
-      <img src="force_setup.jpg" alt="Force Setup">
-      <img src="ur5_fg.jpg" alt="UR5 Setup">
-      <img src="bestfit.png" alt="Best Fit Graph">
-      <img src="rosgraph.jpg" alt="ROS Graph">
+      <img src="optisetup.jpg" alt="optitrack setup">
+      <img src="Screenshot 2025-04-19 230448.png" alt="Optitrack Motive Software">
     </div>
   </div>
   
@@ -399,6 +398,14 @@
       });
       document.getElementById(selection).classList.add('active');
     }
+    fetch('NatNet_LivePlot_XYZ_1.py')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('codeContent').textContent = data;
+    })
+    .catch(err => {
+       document.getElementById('codeContent').textContent = "Failed to load code.";
+    });
   </script>
   </main>
 
