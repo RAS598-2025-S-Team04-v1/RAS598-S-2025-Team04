@@ -29,10 +29,13 @@
     }
 
     h2 {
-      font-size: 1.0em;
+      font-size: 1.15em;
       font-style: italic;
     }
-
+    h2 {
+      font-size: 0.9em;
+      font-style: italic;
+    }
     main {
       padding: 20px;
       text-align: center;
@@ -323,7 +326,7 @@
   
   <br>
 <h2>SOFTWARE CONFIGURATION</h2>
-    <h3>Calibrations</h3>
+    <h3>Calibration</h3>
     <p>Calibration of an OptiTrack motion capture system is the critical step in obtaining accurate 3D tracking of markers throughout the capture volume.
       Begin by physically positioning all cameras around the tracking volume, making sure they are securely mounted, facing inward, and have overlapping fields of view for best marker visibility. With the cameras positioned, open the Motive software and navigate to the calibration tab. Begin camera calibration by waving the calibration wand, which has several precisely located reflective markers on it. Slowly wave the wand throughout the entire capture volume so that it is clearly seen by a series of cameras from varying viewpoints. This movement allows the software to determine the position and orientation of each camera through triangulation. Calibration accuracy is improved as more information are recorded by the system from various areas and angles. When enough data is collected, click "Calculate" to calculate the camera calibration solution. With that done, perform ground plane calibration by placing a calibration square or an L-frame at the desired origin position on the floor. This will allow you to define the coordinate system of your tracking volume. Carefully align and capture this reference, then confirm it in Motive. Lastly, to confirm the overall calibration, load or create a rigid body and move it across the tracking volume. Observe any occurrence of drift, jitter, or position errors—these are signs of whether additional calibration or camera adjustment is necessary. 
       A good calibration guarantees stable, high-accuracy tracking for your motion capture system.</p>
