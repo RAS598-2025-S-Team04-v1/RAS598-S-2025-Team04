@@ -253,31 +253,26 @@
 <body>
   <header>
     <h1><b>RAS598: TEAM-04</b></h1>
-    <p style="text-align: center;">PROJECTILE DYNAMICS USING OPTITRACK AND UR5</p>
+    <p style="text-align: center;">AUTOMATION OF EXPERIMENTATION SETUP</p>
   </header>
 
   <main>
       
     <h1><b>SCOPE</b></h1>
-    <p>The projectile dynamics of the ankle attachment in the pogo stick-type model is characterized through 
-      a separate controlled experiment using a motion-capture test setup. 
-      This setup is designed to drop the ankle joint at varied heights and angles,
-      allowing the identification of accurate motion trajectory.
+    <p>The two experimental setups mentioned before lack in repeatability and introduce human error. This part of our projects adds autonomy to the setup via the UR5. we use the gripper
+      to attach to the setup to add more control. A ROS2 architecture is setup which will move the UR5 for pick up at random location set by the published OptiTrack data.  
     </p>
-  
+
   <br>
 
     <p>The primary activities are:
        
         <div class="justified-list-container">
             <ul>
-              <li><b>Motion Capture Data Integration:</b> Use the OptiTrack system to capture precise motion data of the projectile and the ankle attachment. 
-                This might involve understanding the forces at play and the object's path in 3D space.</li>
-              <li><b>Trajectory Modeling:</b> Develop a model of the projectile dynamics, with consideration of factors like angle, velocity, and external forces acting upon it. 
-                The model must allow for the prediction of the object's movement based on the captured data.</li>
-              <li><b>Robot Integration (UR5):</b> Use the UR5 robot arm to perform a pick-up action based on the real-time position data provided by OptiTrack.
+              <li><b>Estbalishing the IK solver:</b> In our ROS2 node, we develop an Inverse Kinematic Solver to find out the pose etimation for the position mentioned/published by the user. </li>
+              <li><b>Position Tracking:</b> Recieve consistent data from the OptiTrack motion capture system to give real time changes to the UR5 pose.</li>
+              <li><b>Integration in setup:</b> Use the UR5 robot arm to perform a pick-up action based on the real-time position data provided by OptiTrack.
                 The UR5 should be capable of automatically adjusting its position to pick up the object at the correct point along its trajectory.</li>
-              <li><b>Real-time Data Processing:</b> Ensure the system can process OptiTrack data in real time, dynamically adjusting the robot's behavior according to the projectile's motion.</li>
             </ul>
         </div>
     </p>
@@ -287,13 +282,14 @@
 <h1><b>PROJECT SETUP</b></h1>
     
     <h2>Prototype</h2>
-    <p>The prototype is the ankle with a 3D printed triangular retroreflective array, which is the specimen for our test drop setup. The prototype also has an extenstion for the gripper to hold on to.</p>
+    <p>A UR5 with a subject of interest for pickup, with attached reflective markers for the optitrack.</p>
 
     <br>
 
     <h2>OptiTrack</h2>
     
     <p> OptiTrack is the hardware and tracking technology.
+    
     <div class="justified-list-container">
         <ul>
           <li><b>Motion Capture System:</b> These are infrared cameras that track reflective markers.</li>
@@ -305,13 +301,25 @@
     
     <p>Motive is the software that works with OptiTrack hardware. It's a convenient interface for: Camera Calibration, Marker labeling, Data Streaming and Recording and Exporting Data</p> 
 
+    <h2>UR5</h2>
+
+    <p>Universal Robots' UR5 robot arm is a six-degrees-of-freedom collaborative manipulator designed for precision, 
+      flexibility, and user-friendliness in industrial as well as research settings. 
+      It supports up to 5 kg of payload and features easy-to-use user programming, making it perfect for applications ranging from object handling to automation tasks. Together with a Robotiq adaptive gripper-the 2F-85—the system allows for any range of object shapes and sizes to be processed with consistent grip force and position control. Robotiq grippers are optimized for collaborative use and offer plug-and-play connectivity with UR robots through standardized communication protocols and software packages. This marriage provides a compact and flexible platform for robotic manipulation, 
+      particularly where human-robot interaction or dynamic task execution is required.</p>
+    
+    <nav>
+        <a href="https://www.universal-robots.com/products/ur5e/" target="_blank">UR5e</a>
+        <a href="https://robotiq.com/products/adaptive-grippers" target="_blank">Robotiq Gripper</a>
+    </nav>
+    
     <br>
 
     <h2>Define Experiment Parameters:</h2>
-    <p>The UR5 picks up the prototype at a specified height and angle and drops it for the OptiTrack to collect data.</p>
+    <p>The UR5 picks up the prototype at a specified height and angle and drops it for the OptiTrack to collect data. The UR5 then picks up the prototype to repeat the experiment.(The UR5e will pick it up from the position it is dropped, since the ground is constricting we will be setting the protoype upright).</p>
 
     <h2>ROS2-Based Software Configuration:</h2>
-    <p>For getting the position and orientation, a ROS2 architecture was implemented, which gave a PyQt5 GUI, which plots the position and orientation with respect to time</p>
+    <p>For getting the position and orientation, a ROS2 architecture was implemented, and the published position and orientation data is subscribed by the UR5, with this data the UR5 runs an IK solver to find out the joint angles</p>
     <p>Another ROS2 architecture can be deployed into UR5 which can take the rigid body's position and dictate the height and angle of the drop</p>
     </div>
 
@@ -357,7 +365,7 @@
     
     <br>
     
-    <h2>ROS2 ARCHITECTURE</h2>
+  <!--  <h2>ROS2 ARCHITECTURE</h2>
     <div class = "justified-list-container">
     <ul>
       <li>
@@ -376,7 +384,9 @@
     
     <br>
 
+  -->
   
+    
   <div class="mermaid">
     graph LR
       OPTI[/optitrack_node/] --> POSE[/ankle/pose/]
@@ -386,10 +396,10 @@
       FILTER --> ACC[/ankle/acceleration/]
   </div>
   
-  <div style="text-align: center;">
+  <!--<div style="text-align: center;">
   <img src="rosgraph.jpg" alt="ROS2 rqt_graph" class="popup-image">
   <p style="margin-top: 10px; text-align: center;">The rqt_graph of the ROS2 architecture.</p>
-  </div>
+  </div>-->
     
   <br>
 
@@ -410,8 +420,9 @@
     <div class="dropdown-box">
       <label for="mediaType">Choose media:</label>
       <select id="mediaType" onchange="switchGallery()">
-        <option value="images">Images</option>
         <option value="videos">Videos</option>
+        <option value="images">Images</option>
+        
       </select>
 
       <div id="images" class="gallery gallery-section active">
@@ -422,8 +433,8 @@
       </div>
 
       <div id="videos" class="gallery gallery-section">
-        <iframe width="400" height="400" src="https://www.youtube.com/embed/WxmLll2VZsE" frameborder="0" allowfullscreen></iframe>
-        <iframe width="400" height="400" src="https://www.youtube.com/embed/wU4Gq8Kg_fg" frameborder="0" allowfullscreen></iframe>
+        <iframe width="400" height="400" src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
+
       </div>
 
       <div id="popupModal" class="modal" onclick="closeModal()">
