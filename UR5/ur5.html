@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ProjectileDynamics</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #ffff
+      ;
+      color: #333;
+    }
+
+    header {
+      background: #FFC627;
+      color: black;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1, p {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    h2 {
+      font-size: 1.15em;
+      font-style: italic;
+    }
+    h2 {
+      font-size: 0.9em;
+      font-style: italic;
+    }
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    p {
+      text-align: justify;
+      padding-left: 60px;
+      padding-right: 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .mermaid {
+      max-width: 80%;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 2px solid #8c1d40;
+      border-radius: 15px;
+    }
+
+    th, td {
+      border: 1px solid #8c1d40;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .justified-list-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: justify;
+    }
+
+    .justified-list-container ul {
+      padding-left: 20px;
+    }
+
+    .justified-list-container li,
+    ul li {
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    nav {
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      background-color: #8c1d40;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-family: sans-serif;
+    }
+
+    nav a:hover {
+      background-color: #000;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .gallery img, .gallery video {
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .gallery img:hover, .gallery video:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery-section {
+      display: none;
+    }
+
+    .gallery-section.active {
+      display: flex;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .modal-content video, .modal-content img {
+      max-width: 90vw;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .dropdown-box {
+      display: inline-block;
+      background-color: #FFC627;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      margin-bottom: 20px;
+    }
+
+    .popup-image {
+      display: block;
+      margin: 0 auto;
+      width: 800px;
+      height: auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .popup-image:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .code-container {
+      width: 800px;
+      background-color: #FFC627;
+      color: #000;
+      font-family: monospace;
+      border-radius: 8px;
+      overflow: hidden;
+      max-height: 150px;
+      transition: max-height 0.4s ease;
+      position: relative;
+      cursor: pointer;
+      margin: 20px auto;
+    }
+
+    .code-container.expanded {
+      max-height: 1000px; /* expanded height */
+    }
+
+    .code-container pre {
+      margin: 0;
+      padding: 15px;
+      white-space: pre;
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 1000px;
+      text-align: left;
+    }
+
+    .code-container::after {
+      content: "Click to expand/collapse";
+      position: absolute;
+      bottom: 8px;
+      right: 15px;
+      font-size: 12px;
+      color: #000;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    footer {
+      background: #FFC627;
+      color: black;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1><b>RAS598: TEAM-04</b></h1>
+    <p style="text-align: center;">PROJECTILE DYNAMICS USING OPTITRACK AND UR5</p>
+  </header>
+
+  <main>
+      
+    <h1><b>SCOPE</b></h1>
+    <p>The projectile dynamics of the ankle attachment in the pogo stick-type model is characterized through 
+      a separate controlled experiment using a motion-capture test setup. 
+      This setup is designed to drop the ankle joint at varied heights and angles,
+      allowing the identification of accurate motion trajectory.
+    </p>
+  
+  <br>
+
+    <p>The primary activities are:
+       
+        <div class="justified-list-container">
+            <ul>
+              <li><b>Motion Capture Data Integration:</b> Use the OptiTrack system to capture precise motion data of the projectile and the ankle attachment. 
+                This might involve understanding the forces at play and the object's path in 3D space.</li>
+              <li><b>Trajectory Modeling:</b> Develop a model of the projectile dynamics, with consideration of factors like angle, velocity, and external forces acting upon it. 
+                The model must allow for the prediction of the object's movement based on the captured data.</li>
+              <li><b>Robot Integration (UR5):</b> Use the UR5 robot arm to perform a pick-up action based on the real-time position data provided by OptiTrack.
+                The UR5 should be capable of automatically adjusting its position to pick up the object at the correct point along its trajectory.</li>
+              <li><b>Real-time Data Processing:</b> Ensure the system can process OptiTrack data in real time, dynamically adjusting the robot's behavior according to the projectile's motion.</li>
+            </ul>
+        </div>
+    </p>
+    
+  <br>
+  
+<h1><b>PROJECT SETUP</b></h1>
+    
+    <h2>Prototype</h2>
+    <p>The prototype is the ankle with a 3D printed triangular retroreflective array, which is the specimen for our test drop setup. The prototype also has an extenstion for the gripper to hold on to.</p>
+
+    <br>
+
+    <h2>OptiTrack</h2>
+    
+    <p> OptiTrack is the hardware and tracking technology.
+    <div class="justified-list-container">
+        <ul>
+          <li><b>Motion Capture System:</b> These are infrared cameras that track reflective markers.</li>
+          <li><b>Sychronization Tools:</b>Devices that sync cameras and other equipments.</li>
+          <li><b>Software SDKs and APIs:</b> These are tools to access real time motion tracking data into applications like ROS2, python.</li>
+        </ul>
+    </div>
+    </p>
+    
+    <p>Motive is the software that works with OptiTrack hardware. It's a convenient interface for: Camera Calibration, Marker labeling, Data Streaming and Recording and Exporting Data</p> 
+
+    <br>
+
+    <h2>Define Experiment Parameters:</h2>
+    <p>The UR5 picks up the prototype at a specified height and angle and drops it for the OptiTrack to collect data.</p>
+
+    <h2>ROS2-Based Software Configuration:</h2>
+    <p>For getting the position and orientation, a ROS2 architecture was implemented, which gave a PyQt5 GUI, which plots the position and orientation with respect to time</p>
+    <p>Another ROS2 architecture can be deployed into UR5 which can take the rigid body's position and dictate the height and angle of the drop</p>
+    </div>
+
+  <br>
+
+<h1><b>EXPERIMENTATION</b></h1>
+<h2>Hardware Configuration</h2>
+    <div style="text-align: center;">
+        <img src="optisetup.jpg" alt="ROS2 rqt_graph" class="popup-image">
+        <p style="margin-top: 10px; text-align: center;">The Hardware Configuration for our experimentation setup.</p>
+      </div>    
+  
+  <br>
+<h2>SOFTWARE CONFIGURATION</h2>
+    <h3>Calibration</h3>
+    <p>Calibration of an OptiTrack motion capture system is the critical step in obtaining accurate 3D tracking of markers throughout the capture volume.
+      Begin by physically positioning all cameras around the tracking volume, making sure they are securely mounted, facing inward, and have overlapping fields of view for best marker visibility. With the cameras positioned, open the Motive software and navigate to the calibration tab. Begin camera calibration by waving the calibration wand, which has several precisely located reflective markers on it. Slowly wave the wand throughout the entire capture volume so that it is clearly seen by a series of cameras from varying viewpoints. This movement allows the software to determine the position and orientation of each camera through triangulation. Calibration accuracy is improved as more information are recorded by the system from various areas and angles. When enough data is collected, click "Calculate" to calculate the camera calibration solution. With that done, perform ground plane calibration by placing a calibration square or an L-frame at the desired origin position on the floor. This will allow you to define the coordinate system of your tracking volume. Carefully align and capture this reference, then confirm it in Motive. Lastly, to confirm the overall calibration, load or create a rigid body and move it across the tracking volume. Observe any occurrence of drift, jitter, or position errors—these are signs of whether additional calibration or camera adjustment is necessary. 
+      A good calibration guarantees stable, high-accuracy tracking for your motion capture system.</p>
+    
+    <h3>Networking</h3>
+    <p>As discussed before, most of the communications to ROS2 on the Optitrack happens through NatNet SDK. If the MOTIVE is in the same system or a different system as ROS2, a netplan is required which establishes a static IP, in a VM, as communications happen via the Ethernet.
+       For data transfer, the streaming engine uses multicast and uses streaming engine IP with UDP Ports for transfers. Attached below is a python program which takes data from the MOTIVE system to an external system i.e. my windows host machine, via the UDP ports, 
+       the IP of the streaming engine and the static IP we set for our ethernet. The program generates a live plot for the position and orientation and displays it as well, which proved the possibility of a data communication and got us closer to our goal. 
+     </p>
+  
+     <div class="code-container" id="codeBox" onclick="this.classList.toggle('expanded')">
+        <pre id="codeContent">Loading code...</pre>
+      </div>
+    <br>
+
+    <h2>Creating the ROS2 workspace</h2>
+
+    <p>When inculcating with ROS2, we had to set a static IP by changing the netplan(shown below). While using a brigded adapter which is the ethernet, the below netplan sets up the static IP. Our first option was converting the above python code into a ROS2 workspace.
+        Another alternative is installing a ROS2 Driver for the OptiTrack. While both worked properly, issues arrived when recieving data firewall blocked the data. So it is really important to look into:</p>
+    <ul>
+      <li>The Streaming Engine IP recieved from the Motive interface.</li>
+      <li>The Static IP set in the netplan.</li>
+      <li>Firewalls to recieve NatNet SDK packets.</li>
+    </ul>
+    <nav>
+      <a href="https://optitrack.com/" target="_blank">OptiTrack Motion Capture System</a>
+    </nav>
+    
+    <br>
+    
+    <h2>ROS2 ARCHITECTURE</h2>
+    <div class = "justified-list-container">
+    <ul>
+      <li>
+        <strong>Publisher node:</strong> Reads data via serial and publishes it to <code>/force_reading</code>.
+      </li>
+      <li>
+        <strong>Subscriber node:</strong>
+        <ul>
+          <li>Visualizes the data in real-time</li>
+          <li>GUI with buttons for recording control</li>
+          <li>Automatically saves CSV and ros2bag files</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+    
+    <br>
+
+  
+  <div class="mermaid">
+    graph LR
+      OPTI[/optitrack_node/] --> POSE[/ankle/pose/]
+      POSE --> FILTER[/filter_node/]
+      FILTER --> POSEF[/ankle/pose_filtered/]
+      FILTER --> VEL[/ankle/velocity/]
+      FILTER --> ACC[/ankle/acceleration/]
+  </div>
+  
+  <div style="text-align: center;">
+  <img src="rosgraph.jpg" alt="ROS2 rqt_graph" class="popup-image">
+  <p style="margin-top: 10px; text-align: center;">The rqt_graph of the ROS2 architecture.</p>
+  </div>
+    
+  <br>
+
+  <h1><b>DATA COLLECTION</b></h1>
+    <h2>GUI</h2>
+    <p>(Check Image Gallery) The video shows a plot of the position and orientation of the rigid body being plotted, while doing the drop test which gets saved as a csv file</p>
+
+  <br>
+
+  <h1><b>CONCLUSION</b></h1>
+  <p>We devised an setup to analyse projectile dynamics using OptiTrack. This experiment presents a novel and efficient way to test prototypes and robots to further enhance research findings
+    support simulation data. The project started as a physically dropping setup which will, in the next section proceeds to bring automation by using a UR5.</p>
+
+  <br>
+
+  <h1><b>IMAGE GALLERY</b></h1>
+
+    <div class="dropdown-box">
+      <label for="mediaType">Choose media:</label>
+      <select id="mediaType" onchange="switchGallery()">
+        <option value="images">Images</option>
+        <option value="videos">Videos</option>
+      </select>
+
+      <div id="images" class="gallery gallery-section active">
+        <img src="force_setup.jpg" alt="Force Setup" onclick="openModal(this.src)">
+        <img src="ur5_fg.jpg" alt="UR5 Setup" onclick="openModal(this.src)">
+        <img src="bestfit.png" alt="Best Fit Graph" onclick="openModal(this.src)">
+        <img src="rosgraph.jpg" alt="ROS Graph" onclick="openModal(this.src)">
+      </div>
+
+      <div id="videos" class="gallery gallery-section">
+        <iframe width="400" height="400" src="https://www.youtube.com/embed/WxmLll2VZsE" frameborder="0" allowfullscreen></iframe>
+        <iframe width="400" height="400" src="https://www.youtube.com/embed/wU4Gq8Kg_fg" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div id="popupModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content" id="modalContent"></div>
+      </div>
+    </div>
+
+<br>
+
+
+</main>
+<script>
+    fetch('NatNet_LivePlot_XYZ_1.py')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('codeContent').textContent = data;
+        })
+        .catch(err => {
+          document.getElementById('codeContent').textContent = "Failed to load code.";
+    });
+    function switchGallery() {
+      const selection = document.getElementById("mediaType").value;
+      document.querySelectorAll('.gallery-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(selection).classList.add('active');
+    }
+
+    function openModal(src) {
+      const modal = document.getElementById("popupModal");
+      const content = document.getElementById("modalContent");
+      content.innerHTML = "";
+
+      const ext = src.split('.').pop().toLowerCase();
+      if (['mp4', 'webm', 'ogg'].includes(ext)) {
+        const video = document.createElement("video");
+        video.src = src;
+        video.controls = true;
+        video.autoplay = true;
+        content.appendChild(video);
+      } else {
+        const img = document.createElement("img");
+        img.src = src;
+        content.appendChild(img);
+      }
+
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("popupModal").style.display = "none";
+    }
+
+    document.querySelector(".close").onclick = closeModal;
+  </script>
+</body>
+</html>
