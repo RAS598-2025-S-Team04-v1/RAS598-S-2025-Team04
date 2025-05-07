@@ -322,30 +322,14 @@
        For data transfer, the streaming engine uses multicast and uses streaming engine IP with UDP Ports for transfers. Attached below is a python program which takes data from the MOTIVE system to an external system i.e. my windows host machine, via the UDP ports, 
        the IP of the streaming engine and the static IP we set for our ethernet. The program generates a live plot for the position and orientation and displays it as well, which proved the possibility of a data communication and got us closer to our goal. 
      </p>
-    <h3>Python Code</h3>
-    <p></p>
-     <div class="code-container" id="codeBox" onclick="this.classList.toggle('expanded')">
-        <pre id="codeContent">Loading code...</pre>
-      </div>
-    <br>
 
-    <h2>Creating the ROS2 workspace</h2>
-
-    <h3>OptiTrack</h3>
-    <p>When inculcating with ROS2, we had to set a static IP by changing the netplan(shown below). While using a brigded adapter which is the ethernet, the below netplan sets up the static IP. Our first option was converting the above python code into a ROS2 workspace.
-        Another alternative is installing a ROS2 Driver for the OptiTrack. While both worked properly, issues arrived when recieving data firewall blocked the data. So it is really important to look into:</p>
-    <div class="justified-list-container">
-    <ul>
-      <li>The Streaming Engine IP recieved from the Motive interface.</li>
-      <li>The Static IP set in the netplan.</li>
-      <li>Firewalls to recieve NatNet SDK packets.</li>
-    </ul>
-    </div>
-    <nav>
-      <a href="https://optitrack.com/" target="_blank">OptiTrack Motion Capture System</a>
-    </nav>
+    <h2>Code Architecture</h2>
     
-    <br>
+    <h3>UR5e</h3>
+  <div style="text-align: center;">
+    <img src="ChatGPT Image May 6, 2025, 07_52_30 PM.png" alt="ROS2 rqt_graph" class="popup-image">
+  </div>
+    
     
   <!--  <h2>ROS2 ARCHITECTURE</h2>
     <div class = "justified-list-container">
