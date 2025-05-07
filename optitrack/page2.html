@@ -310,6 +310,11 @@
       </div>
     <br>
 
+    <h3>Code Explanation</h3>
+    <p>This is a Python application that connects to an OptiTrack motion capture system using the NatNet protocol to
+      receive and plot 3D position data of rigid bodies in real time. It has a NatNetClient class that handles UDP socket communication to receive and decode motion capture data packets and extract information such as marker positions, rigid body transforms, and timestamps. The listener function is called each frame to read and log position data for the first rigid body. The data is then live-plotted using matplotlib, with X, Y, and Z positions plotted versus time in a scrolling plot. The script uses threading to handle network data streams asynchronously 
+      and is compatible with different versions of NatNet by reading packet structures conditionally based on protocol documentation.</p>
+
     <h2>Creating the ROS2 workspace</h2>
 
     <p>When inculcating with ROS2, we had to set a static IP by changing the netplan(shown below). While using a brigded adapter which is the ethernet, the below netplan sets up the static IP. Our first option was converting the above python code into a ROS2 workspace.
@@ -421,8 +426,7 @@
   </script>
 <h1><b>GITHUB</b></h1>
 <nav>
-  <a href="https://www.universal-robots.com/products/ur5e/" target="_blank">UR5e</a>
-  <a href="https://robotiq.com/products/adaptive-grippers" target="_blank">Robotiq Gripper</a>
+  <a href="https://github.com/OptiTrack/mocap4ros2_optitrack" target="_blank">A public optiTrack driver repo we tried for this project.</a>
 </nav>
   
 </main>
