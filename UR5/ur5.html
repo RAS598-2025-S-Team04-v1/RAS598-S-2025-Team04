@@ -320,6 +320,7 @@
 
     <h2>Creating the ROS2 workspace</h2>
 
+    <h3>OptiTrack</h3>
     <p>When inculcating with ROS2, we had to set a static IP by changing the netplan(shown below). While using a brigded adapter which is the ethernet, the below netplan sets up the static IP. Our first option was converting the above python code into a ROS2 workspace.
         Another alternative is installing a ROS2 Driver for the OptiTrack. While both worked properly, issues arrived when recieving data firewall blocked the data. So it is really important to look into:</p>
     <div class="justified-list-container">
@@ -370,7 +371,12 @@
   <img src="rosgraph.jpg" alt="ROS2 rqt_graph" class="popup-image">
   <p style="margin-top: 10px; text-align: center;">The rqt_graph of the ROS2 architecture.</p>
   </div>-->
-    
+  
+  <h3>UR5e</h3>
+  <div style="text-align: center;">
+    <img src="rqtplot.jpg" alt="ROS2 rqt_graph" class="popup-image">
+    <p style="margin-top: 10px; text-align: center;">The Hardware Configuration for our experimentation setup.</p>
+  </div>
   <br>
 
   <h1><b>DATA COLLECTION</b></h1>
@@ -401,8 +407,9 @@
 
   <!-- Images section -->
   <div id="images" class="gallery-section">
-    <!-- <img src="force_setup.jpg" alt="Force Setup">
-    <img src="ur5_fg.jpg" alt="UR5 Setup">
+    <img src="rqtplot.jpg" alt="Rqtplot of the UR5e">
+
+    <!-- <img src="ur5_fg.jpg" alt="UR5 Setup">
     <img src="bestfit.png" alt="Best Fit Graph">
     <img src="rosgraph.jpg" alt="ROS Graph"> -->
   </div>
