@@ -392,13 +392,14 @@
 
   <h1><b>DATA COLLECTION</b></h1>
     <h2>GUI</h2>
-    <p>(Check Image Gallery) The video shows a plot of the position and orientation of the rigid body being plotted, while doing the drop test which gets saved as a csv file</p>
+    <p>(Check Image Gallery) The video shows a ros2 launch program which pick and drop from home in multiple cycles. This shows that repeatability is possibile and is ready to conduct the experimentation.</p>
 
   <br>
 
   <h1><b>CONCLUSION</b></h1>
-  <p>We devised an setup to analyse projectile dynamics using OptiTrack. This experiment presents a novel and efficient way to test prototypes and robots to further enhance research findings
-    support simulation data. The project started as a physically dropping setup which will, in the next section proceeds to bring automation by using a UR5.</p>
+  <p>We devised an setup to automate the experimental setup using UR5e. 
+    This experiment presents a novel and efficient way to test prototypes and robots to further enhance research findings
+    support simulation data.</p>
 
   <br>
 
@@ -414,7 +415,7 @@
   <!-- Videos section - shown by default -->
   <div id="videos" class="gallery-section active">
     <iframe src="https://www.youtube.com/embed/6Yr96qLoCHg" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/mxM2zSOpO8w" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/QI_6Z0cKGOc" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <!-- Images section -->
@@ -426,6 +427,16 @@
     <img src="rosgraph.jpg" alt="ROS Graph"> -->
   </div>
 </div>
+
+<h1><b>TRADEOFFS</b></h1>
+<p>While we were successful in establishing the tradeoffs of the experimentations, we did see few issues which need to be addressed from what we solved
+  <div class="justified-list-container">
+  <ul>
+    <li><b>Gripper:</b>The gripper does not work independently on the cycle. To work independently, we used a timer function which is inconsistent at most times.</li>
+    <li><b>IK:</b> The base joint angles were manipulated according to our needs. More freedom would be required in this matter.</li>
+  </ul>
+</div>
+</p>
 
 <script>
   function switchGallery() {
@@ -444,6 +455,12 @@
      document.getElementById('codeContent').textContent = "Failed to load code.";
   });
 </script>
+
+<h1><b>GITHUB</b></h1>
+<nav>
+  <a href="https://www.universal-robots.com/products/ur5e/" target="_blank">UR5e</a>
+  <a href="https://robotiq.com/products/adaptive-grippers" target="_blank">Robotiq Gripper</a>
+</nav>
 
 </main>
 </body>
